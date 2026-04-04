@@ -1,107 +1,46 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RockPipe 烟斗文化</title>
-    <style>
-        /* 全局样式重置，消除默认边距 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            /* 背景配置：完美适配你的RockPipe logo */
-            background-image: url('./assets/rockpipe-logo.png');
-            background-size: contain; /* 完整显示logo，不裁剪 */
-            background-position: center center; /* 居中显示 */
-            background-repeat: no-repeat; /* 不重复 */
-            background-color: #f8f5e6; /* 匹配logo的米白色背景，融合自然 */
-            min-height: 100vh; /* 占满整个屏幕高度 */
-            display: flex;
-            justify-content: center; /* 水平居中二维码 */
-            align-items: center; /* 垂直居中二维码 */
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        /* 二维码卡片容器：半透明白底，保证扫码清晰 */
-        .qrcode-card {
-            background-color: rgba(255, 255, 255, 0.92);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            backdrop-filter: blur(8px);
-            text-align: center;
-            max-width: 90vw; /* 移动端自适应 */
-        }
-
-        /* 二维码图片样式 */
-        .qrcode-img {
-            width: 280px;
-            height: 280px;
-            border-radius: 8px;
-            margin: 1rem 0;
-            border: 2px solid #e0e0e0;
-        }
-
-        /* 标题样式：匹配logo手写风格 */
-        .card-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            font-family: 'Segoe Script', 'Brush Script MT', 'KaiTi', cursive;
-            letter-spacing: 1px;
-        }
-
-        /* 说明文字 */
-        .card-desc {
-            font-size: 1rem;
-            color: #666;
-            margin-top: 0.5rem;
-            line-height: 1.5;
-        }
-
-        /* 📱 移动端适配 */
-        @media (max-width: 768px) {
-            .qrcode-img {
-                width: 220px;
-                height: 220px;
-            }
-            .qrcode-card {
-                padding: 1.5rem;
-            }
-            .card-title {
-                font-size: 1.5rem;
-            }
-            .card-desc {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* 🖥️ 大屏适配 */
-        @media (min-width: 1200px) {
-            .qrcode-img {
-                width: 320px;
-                height: 320px;
-            }
-            .card-title {
-                font-size: 2rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二维码页面</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:#f6f6f6;
+  background-image:url('https://picsum.photos/1920/1080');
+  background-size:cover;
+  background-position:center;
+  font-family:sans-serif;
+}
+.card{
+  background:rgba(255,255,255,0.95);
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+.card img{
+  width:260px;
+  height:260px;
+  display:block;
+  margin:20px auto;
+}
+.card h2{
+  margin-bottom:10px;
+}
+</style>
 </head>
 <body>
-    <div class="qrcode-card">
-        <h1 class="card-title">RockPipe</h1>
-        <!-- 示例二维码：指向示例站点，可直接替换为你的真实链接 -->
-        <img 
-            src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https://example.com&bgcolor=f8f5e6&color=000000&margin=1" 
-            alt="RockPipe 烟斗文化 二维码" 
-            class="qrcode-img"
-        >
-        <p class="card-desc">扫码探索烟斗文化 | RockPipe 官方账号</p>
-    </div>
+<div class="card">
+  <h2>扫码添加我</h2>
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=https://github.com" alt="二维码">
+  <p>扫码直达</p>
+</div>
 </body>
 </html>
