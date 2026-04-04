@@ -3,122 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RockPipe 烟斗文化</title>
+    <title>RockPipe - 烟斗文化</title>
     <style>
-        /* 全局重置，消除默认边距 */
+        /* 核心样式变量 */
+        :root {
+            --primary-color: #4a2c2a; /* 深木色 */
+            --accent-color: #d4a373;  /* 琥珀色 */
+            --bg-blur: 20px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            position: relative;
-            /* 匹配logo的米白色背景，和logo完美融合 */
-            background-color: #f8f5e6;
-            min-height: 100vh;
+        body, html {
+            height: 100%;
+            font-family: 'Noto Serif SC', serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            overflow: hidden; /* 防止背景模糊溢出出现滚动条 */
+            overflow: hidden;
+            background-color: #1a1a1a;
         }
 
-        /* 🔹 背景层：只模糊背景，不影响中间内容，柔和不抢戏 */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* 背景图：必须用你原来的RockPipe logo，命名为rockpipe-logo.png，和HTML同目录 */
-            background-image: url('rockpipe-logo.png');
-            background-size: contain; /* 完整显示logo，不裁剪 */
-            background-position: center center;
-            background-repeat: no-repeat;
-            /* 柔和模糊+透明度，高级感拉满，不抢二维码风头 */
-            filter: blur(6px);
-            opacity: 0.75;
-            z-index: -1; /* 放在最底层，绝对不遮挡二维码 */
+        /* 动态模糊背景 */
+        .background {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: url('rockpipe-logo.png') no-repeat center center;
+            background-size: cover;
+            filter: blur(var(--bg-blur)) brightness(0.4);
+            z-index: -1;
         }
 
-        /* 🔹 二维码卡片：干净高级，和背景完美融合 */
-        .qrcode-card {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 2.2rem;
-            border-radius: 20px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        /* 主体卡片 */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
             text-align: center;
-            max-width: 90vw;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            max-width: 400px;
+            width: 90%;
+            animation: fadeIn 1.2s ease-out;
         }
 
-        /* 🔹 二维码：本地可替换，样式干净 */
-        .qrcode-img {
-            width: 280px;
-            height: 280px;
-            border-radius: 8px;
-            margin: 1.2rem 0;
-            /* 去掉多余边框，更干净 */
-            border: none;
+        /* Logo 样式 */
+        .logo {
+            width: 180px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
         }
 
-        /* 🔹 标题：完美匹配logo的手写风格，协调统一 */
-        .card-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            font-family: 'Segoe Script', 'Brush Script MT', 'KaiTi', cursive;
+        /* 二维码容器 */
+        .qr-wrapper {
+            background: white;
+            padding: 15px;
+            border-radius: 18px;
+            display: inline-block;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .qr-wrapper:hover {
+            transform: scale(1.02);
+        }
+
+        .qr-code {
+            display: block;
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+        }
+
+        /* 文字装饰 */
+        h1 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
             letter-spacing: 1px;
         }
 
-        /* 🔹 说明文字：柔和不突兀 */
-        .card-desc {
-            font-size: 1rem;
-            color: #666;
-            margin-top: 0.6rem;
-            line-height: 1.5;
+        /* 入场动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 📱 移动端完美适配 */
-        @media (max-width: 768px) {
-            .qrcode-img {
-                width: 220px;
-                height: 220px;
-            }
-            .qrcode-card {
-                padding: 1.8rem;
-            }
-            .card-title {
-                font-size: 1.6rem;
-            }
-            .card-desc {
-                font-size: 0.9rem;
-            }
-        }
-
-        /* 🖥️ 大屏适配 */
-        @media (min-width: 1200px) {
-            .qrcode-img {
-                width: 320px;
-                height: 320px;
-            }
-            .card-title {
-                font-size: 2rem;
-            }
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .card { padding: 30px 20px; }
+            .qr-code { width: 160px; height: 160px; }
         }
     </style>
 </head>
 <body>
-    <div class="qrcode-card">
-        <h1 class="card-title">RockPipe</h1>
-        <!-- 🔹 本地二维码：把你的二维码命名为qrcode.png，和HTML同目录自动显示 -->
-        <img 
-            src="qrcode.png" 
-            alt="RockPipe 烟斗文化 二维码" 
-            class="qrcode-img"
-        >
-        <p class="card-desc">扫码探索烟斗文化 | RockPipe 官方账号</p>
+
+    <div class="background"></div>
+
+    <div class="card">
+        <img src="rockpipe-logo.png" alt="RockPipe Logo" class="logo">
+        
+        <div class="qr-wrapper">
+            <img src="qrcode.png" alt="QR Code" class="qr-code">
+        </div>
+
+        <h1>RockPipe</h1>
+        <p>品味烟斗艺术 · 享受慢调生活</p>
     </div>
+
 </body>
 </html>
