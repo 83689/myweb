@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RockPipe 烟斗文化</title>
     <style>
+        /* 全局重置，消除默认边距 */
         * {
             margin: 0;
             padding: 0;
@@ -12,68 +13,91 @@
         }
 
         body {
-            /* 🔥 这里修好了！直接和 HTML 放同一个文件夹就能读，不会 404 */
-            background-image: url('rockpipe-logo.png');
-            background-size: contain;
-            background-position: center center;
-            background-repeat: no-repeat;
+            position: relative;
+            /* 匹配logo的米白色背景，和logo完美融合 */
             background-color: #f8f5e6;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden; /* 防止背景模糊溢出出现滚动条 */
         }
 
+        /* 🔹 背景层：只模糊背景，不影响中间内容，柔和不抢戏 */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* 背景图：必须用你原来的RockPipe logo，命名为rockpipe-logo.png，和HTML同目录 */
+            background-image: url('rockpipe-logo.png');
+            background-size: contain; /* 完整显示logo，不裁剪 */
+            background-position: center center;
+            background-repeat: no-repeat;
+            /* 柔和模糊+透明度，高级感拉满，不抢二维码风头 */
+            filter: blur(6px);
+            opacity: 0.75;
+            z-index: -1; /* 放在最底层，绝对不遮挡二维码 */
+        }
+
+        /* 🔹 二维码卡片：干净高级，和背景完美融合 */
         .qrcode-card {
-            background-color: rgba(255, 255, 255, 0.92);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 2.2rem;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
             text-align: center;
             max-width: 90vw;
         }
 
+        /* 🔹 二维码：本地可替换，样式干净 */
         .qrcode-img {
             width: 280px;
             height: 280px;
             border-radius: 8px;
-            margin: 1rem 0;
-            border: 2px solid #e0e0e0;
+            margin: 1.2rem 0;
+            /* 去掉多余边框，更干净 */
+            border: none;
         }
 
+        /* 🔹 标题：完美匹配logo的手写风格，协调统一 */
         .card-title {
-            font-size: 1.75rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #1a1a1a;
-            font-family: 'Segoe Script', 'Brush Script MT', KaiTi, cursive;
+            font-family: 'Segoe Script', 'Brush Script MT', 'KaiTi', cursive;
             letter-spacing: 1px;
         }
 
+        /* 🔹 说明文字：柔和不突兀 */
         .card-desc {
             font-size: 1rem;
             color: #666;
-            margin-top: 0.5rem;
+            margin-top: 0.6rem;
             line-height: 1.5;
         }
 
+        /* 📱 移动端完美适配 */
         @media (max-width: 768px) {
             .qrcode-img {
                 width: 220px;
                 height: 220px;
             }
             .qrcode-card {
-                padding: 1.5rem;
+                padding: 1.8rem;
             }
             .card-title {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
             .card-desc {
                 font-size: 0.9rem;
             }
         }
 
+        /* 🖥️ 大屏适配 */
         @media (min-width: 1200px) {
             .qrcode-img {
                 width: 320px;
@@ -88,8 +112,9 @@
 <body>
     <div class="qrcode-card">
         <h1 class="card-title">RockPipe</h1>
+        <!-- 🔹 本地二维码：把你的二维码命名为qrcode.png，和HTML同目录自动显示 -->
         <img 
-            src="https://api.qrserver.com/v1/create-qr-code/?size=280x280&data=https://example.com&bgcolor=f8f5e6&color=000000&margin=1" 
+            src="qrcode.png" 
             alt="RockPipe 烟斗文化 二维码" 
             class="qrcode-img"
         >
