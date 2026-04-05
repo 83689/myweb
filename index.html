@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RockPipe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold-light: #f1d27b;
@@ -42,7 +41,7 @@
             background-image: 
                 linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%),
                 url('rockpipe-logo.png');
-            background-size: cover; /* PC端保持原样 */
+            background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
             filter: blur(8px);
@@ -51,40 +50,37 @@
 
         .qrcode-card {
             background-color: var(--card-bg);
-            padding: 3rem 2rem;
-            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            border-radius: 18px;
             border: 1px solid rgba(212, 175, 55, 0.25);
             border-top: 1px solid rgba(255, 255, 255, 0.15);
             border-left: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 
-                        inset 0 0 20px rgba(212, 175, 55, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 
+                        inset 0 0 15px rgba(212, 175, 55, 0.05);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             text-align: center;
-            max-width: 400px;
+            max-width: 320px;
             width: 90%;
             animation: cardAppear 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .card-title {
-            font-size: 3.5rem; /* Web字体略微偏小，稍微调大一点点 */
-            font-weight: 700;
-            /* 🔥 使用刚刚引入的 Dancing Script 字体 */
-            font-family: 'Dancing Script', 'Segoe Script', cursive;
-            margin-bottom: 1rem; 
-            background: linear-gradient(to bottom, var(--gold-light), var(--gold-main), var(--gold-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .card-title-img {
+            display: block;
+            width: 180px;
+            height: auto;
+            margin: 0 auto 1rem auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
         }
 
         .qr-frame {
             position: relative;
             display: inline-block;
-            margin: 0 0 1.2rem 0; 
-            padding: 10px;
+            margin: 0 0 1rem 0; 
+            padding: 8px;
             background: linear-gradient(145deg, rgba(26,26,26,0.8), rgba(0,0,0,0.8));
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
 
         .qr-frame::before {
@@ -92,50 +88,48 @@
             position: absolute;
             top: -2px; left: -2px; right: -2px; bottom: -2px;
             border: 1px solid var(--gold-main);
-            border-radius: 14px;
+            border-radius: 12px;
             opacity: 0.4;
             pointer-events: none;
         }
 
         .qrcode-img {
             display: block;
-            width: 300px; 
-            height: 300px;
+            width: 220px; 
+            height: 220px;
             border-radius: 4px;
             filter: brightness(1.05);
         }
 
         .card-desc {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             color: rgba(212, 175, 55, 0.8);
-            margin-top: 0.5rem;
+            margin-top: 0.3rem;
             letter-spacing: 1px;
         }
 
         @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* 移动端独立适配 */
         @media (max-width: 480px) {
             body::before {
-                /* 🔥 核心修复2：手机端不再强行铺满屏幕高度，而是按宽度 150% 缩放，保留图案主要特征 */
                 background-size: 150% auto; 
-                background-position: center 30%; /* 稍微靠上一点，避开底部 */
+                background-position: center 30%;
             }
-            .qrcode-img { width: 240px; height: 240px; }
-            .card-title { font-size: 3.2rem; }
-            .card-desc { font-size: 1rem; }
-            .qrcode-card { padding: 2.5rem 1.5rem; }
+            .qrcode-img { width: 200px; height: 200px; }
+            .card-title-img { width: 160px; }
+            .card-desc { font-size: 0.85rem; }
+            .qrcode-card { padding: 1.8rem 1.2rem; }
         }
     </style>
 </head>
 <body>
     <div class="qrcode-card">
-        <h1 class="card-title">RockPipe</h1>
+        <img src="title.png" alt="RockPipe" class="card-title-img">
         <div class="qr-frame">
-            <img src="qrcode.png" alt="RockPipe" class="qrcode-img">
+            <img src="qrcode.png" alt="QR Code" class="qrcode-img">
         </div>
         <p class="card-desc">扫码探索烟斗文化 | RockPipe 官方账号</p>
     </div>
