@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RockPipe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold-light: #f1d27b;
@@ -41,7 +42,7 @@
             background-image: 
                 linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%),
                 url('rockpipe-logo.png');
-            background-size: cover;
+            background-size: cover; /* PC端保持原样 */
             background-position: center center;
             background-repeat: no-repeat;
             filter: blur(8px);
@@ -66,9 +67,10 @@
         }
 
         .card-title {
-            font-size: 3.2rem;
+            font-size: 3.5rem; /* Web字体略微偏小，稍微调大一点点 */
             font-weight: 700;
-            font-family: 'Segoe Script', 'Brush Script MT', 'KaiTi', cursive;
+            /* 🔥 使用刚刚引入的 Dancing Script 字体 */
+            font-family: 'Dancing Script', 'Segoe Script', cursive;
             margin-bottom: 1rem; 
             background: linear-gradient(to bottom, var(--gold-light), var(--gold-main), var(--gold-dark));
             -webkit-background-clip: text;
@@ -115,9 +117,15 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
+        /* 移动端独立适配 */
         @media (max-width: 480px) {
+            body::before {
+                /* 🔥 核心修复2：手机端不再强行铺满屏幕高度，而是按宽度 150% 缩放，保留图案主要特征 */
+                background-size: 150% auto; 
+                background-position: center 30%; /* 稍微靠上一点，避开底部 */
+            }
             .qrcode-img { width: 240px; height: 240px; }
-            .card-title { font-size: 2.8rem; }
+            .card-title { font-size: 3.2rem; }
             .card-desc { font-size: 1rem; }
             .qrcode-card { padding: 2.5rem 1.5rem; }
         }
