@@ -2,16 +2,15 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RockPipe | 烟斗文化</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RockPipe</title>
     <style>
-        /* 核心配色：黑金 */
         :root {
             --gold-light: #f1d27b;
             --gold-main: #d4af37;
             --gold-dark: #aa8928;
             --bg-dark: #0f0f0f;
-            --card-bg: rgba(25, 25, 25, 0.85);
+            --card-bg: rgba(25, 25, 25, 0.45); 
         }
 
         * {
@@ -21,75 +20,71 @@
         }
 
         body {
-            position: relative;
             background-color: var(--bg-dark);
             min-height: 100vh;
+            min-height: 100dvh; 
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Optima', 'Cinzel', 'Noto Serif SC', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             overflow: hidden;
+            position: relative;
         }
 
-        /* 🔹 背景层：Logo 模糊并压暗 */
         body::before {
             content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* 叠加一层深色渐变，让背景更有深度感 */
-            background: 
-                linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%),
+            position: fixed;
+            top: -5%;
+            left: -5%;
+            width: 110%;
+            height: 110%;
+            background-image: 
+                linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%),
                 url('rockpipe-logo.png');
             background-size: cover;
-            background-position: center;
-            filter: blur(12px) scale(1.1); /* 稍微放大防止边缘发白 */
+            background-position: center center;
+            background-repeat: no-repeat;
+            filter: blur(8px);
             z-index: -1;
         }
 
-        /* 🔹 黑金二维码卡片 */
         .qrcode-card {
             background-color: var(--card-bg);
             padding: 3rem 2rem;
             border-radius: 20px;
-            /* 金色细边框 */
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 
                         inset 0 0 20px rgba(212, 175, 55, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             text-align: center;
             max-width: 400px;
             width: 90%;
-            animation: cardAppear 1s ease-out;
+            animation: cardAppear 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* 🔹 金色渐变标题 */
         .card-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
+            font-size: 3.2rem;
+            font-weight: 700;
+            font-family: 'Segoe Script', 'Brush Script MT', 'KaiTi', cursive;
+            margin-bottom: 1rem; 
             background: linear-gradient(to bottom, var(--gold-light), var(--gold-main), var(--gold-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 3px;
-            text-transform: uppercase;
         }
 
-        /* 🔹 二维码包装盒：做出像首饰盒一样的质感 */
         .qr-frame {
             position: relative;
             display: inline-block;
-            margin: 1.5rem 0;
+            margin: 0 0 1.2rem 0; 
             padding: 10px;
-            background: linear-gradient(145deg, #1a1a1a, #000);
+            background: linear-gradient(145deg, rgba(26,26,26,0.8), rgba(0,0,0,0.8));
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* 扫码装饰角（四个金角，增加高级感） */
         .qr-frame::before {
             content: "";
             position: absolute;
@@ -102,54 +97,39 @@
 
         .qrcode-img {
             display: block;
-            width: 240px;
-            height: 240px;
+            width: 300px; 
+            height: 300px;
             border-radius: 4px;
-            /* 略微增加对比度，让二维码在暗色背景下更好扫 */
             filter: brightness(1.05);
         }
 
         .card-desc {
-            font-size: 0.95rem;
-            color: rgba(212, 175, 55, 0.7); /* 琥珀金色文字 */
-            margin-top: 1rem;
-            letter-spacing: 2px;
-            font-weight: 300;
-        }
-
-        /* 分割线装饰 */
-        .divider {
-            height: 1px;
-            width: 60px;
-            background: var(--gold-main);
-            margin: 1.5rem auto;
-            opacity: 0.5;
+            font-size: 1.1rem;
+            color: rgba(212, 175, 55, 0.8);
+            margin-top: 0.5rem;
+            letter-spacing: 1px;
         }
 
         @keyframes cardAppear {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* 响应式 */
         @media (max-width: 480px) {
-            .qrcode-img { width: 200px; height: 200px; }
-            .card-title { font-size: 1.8rem; }
+            .qrcode-img { width: 240px; height: 240px; }
+            .card-title { font-size: 2.8rem; }
+            .card-desc { font-size: 1rem; }
+            .qrcode-card { padding: 2.5rem 1.5rem; }
         }
     </style>
 </head>
 <body>
     <div class="qrcode-card">
         <h1 class="card-title">RockPipe</h1>
-        
-        <div class="divider"></div>
-
         <div class="qr-frame">
-            <img src="qrcode.png" alt="RockPipe 二维码" class="qrcode-img">
+            <img src="qrcode.png" alt="RockPipe" class="qrcode-img">
         </div>
-
-        <p class="card-desc">品味石楠之美 · 慢享指尖烟霞</p>
-        <p style="color: rgba(255,255,255,0.3); font-size: 0.7rem; margin-top: 20px; letter-spacing: 1px;">EXCLUSIVE PIPES & CULTURE</p>
+        <p class="card-desc">扫码探索烟斗文化 | RockPipe 官方账号</p>
     </div>
 </body>
 </html>
